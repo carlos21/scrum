@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scrum</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <!-- Header -->
+  <%= render 'sections/header' %>
+
+  <div class="maincontent">
+    <!-- Navigation -->
+    <%= render 'sections/navigation' %>
+
+    <!-- Content -->
+    <div class="content">
+      <%= yield %>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <%= render 'sections/footer' %>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<script type="text/javascript">
+
+  function enter(e) {
+    return true;
+  }
+
+  function over(e) {
+    var pbi = e.dataTransfer.getData('pbi');
+    var id = e.target.getAttribute('id');
+
+    // return false para permitir soltar
+    return false;
+  }
+
+  function drop(e) {
+    var pbi_id = e.dataTransfer.getData('pbi');
+    e.target.appendChild(document.getElementById(pbi_id));
+    e.stopPropagation();
+    return false;
+  }
+
+  function start(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('pbi', e.target.getAttribute('id'));
+    e.dataTransfer.setDragImage(e.target, 0, 0);
+    return true;
+  }
+
+  function end(e) {
+    e.dataTransfer.clearData('pbi');
+    return true;
+  }
+
+  function PBI() {
+    var pbi = document.createElement('div');
+    var product_backlog = document.getElementById('product-backlog');
+    pbi.className = 'pbi';
+    //pbi.addEventListener('focusLost', function(e) {return self.onFocusLost(e);});
+    product_backlog.appendChild(pbi);
+  }
+
+  PBI.prototype = {
+    get id() {
+      if (!("_id" in this))
+        this._id = 0;
+      return this._id;
+    },
+
+    set id(x) {
+      this._id = x
+    },
+
+    get description() {
+      return this.innerHTML;
+    },
+
+    set description(x) {
+      this.innerHTML = x;
+    }
+
+  }
+
+  function addPBI() {
+    var pbi = new PBI();
+
+  }
+
+  function submitWithAjax(form) {  
+    form.submit(function() {
+      $.post('<%=update_pbi_path%>', $(this).serialize(), null, "script");  
+      return false;  
+    });  
+  }
+
+  function update_pbi(e) {
+    var form = $("#hidden_form");
+    var input_pbi_id = $("#pbi_id");
+    var input_description = $("#description");
+
+    input_pbi_id.value = e.parentNode.id;
+    input_description.value = e.innerHTML;
+
+    submitWithAjax($("#hidden_form"));
+  }
+
+  $("#pane1").jScrollPane();
+
+</script>
+
+  <div id="pane1" class="scroll-pane">
+    5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px
+  </div>
+
+
+<%= link_to 'Add', create_pbi_path, remote: true %>
+<div id="product-backlog" 
+  ondragenter="return enter(event)"
+  ondragover="return over(event)"
+  ondrop="return drop(event)">
+  <%= render 'sprint/partials/product_backlog' %>
+</div>
+<div id="sprint"
+  ondragenter="return enter(event)"
+  ondragover="return over(event)"
+  ondrop="return drop(event)">
+  
+</div>
+
+<%= form_tag update_pbi_path, :id => 'hidden_form', :remote => true, :onclick => 'update_pbi' do %>
+  <input type="hidden" id="pbi_id" value="">
+  <input type="hidden" id="description" value="">
+<% end %>
+

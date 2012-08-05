@@ -1,0 +1,2 @@
+class PbiController < ApplicationController
+end

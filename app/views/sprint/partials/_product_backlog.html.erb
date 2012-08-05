@@ -1,0 +1,14 @@
+<% @pbis.each do |p| %>
+  <div id="<%=p.id%>" class="pbi"
+    ondragstart="return start(event)"
+    ondragend="return end(event)"
+    ondragover="return true">
+    <div class="pbi-header" draggable="true">header</div>
+    <div class="flexcroll" onblur="update_pbi(this)">
+      <%= p.description %>
+    </div>
+  </div>
+<% end %>
+
+
+
