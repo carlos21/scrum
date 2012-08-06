@@ -4,4 +4,8 @@ class Pbi < ActiveRecord::Base
   has_many :activities
   has_many :pbisprintassignment
   has_many :sprints, through: :pbisprintassignment
+
+  def update_description()
+    
+  end
 end

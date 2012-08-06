@@ -62,35 +62,60 @@
 
   function addPBI() {
     var pbi = new PBI();
-
   }
 
-  function submitWithAjax(form) {  
-    form.submit(function() {
-      $.post('<%=update_pbi_path%>', $(this).serialize(), null, "script");  
-      return false;  
-    });  
+  function submitWithAjax(id, description) {  
+
+    $.ajax({
+      type: "POST",
+      url: "<%=update_pbi_path%>",
+      data: "pbi_id=" + id + "&description=" + description,
+      success: function(msg){
+        
+      }
+    });
+
   }
 
   function update_pbi(e) {
+
     var form = $("#hidden_form");
     var input_pbi_id = $("#pbi_id");
     var input_description = $("#description");
+    var pbi = e.parentNode;
 
     input_pbi_id.value = e.parentNode.id;
     input_description.value = e.innerHTML;
 
-    submitWithAjax($("#hidden_form"));
+    // make it draggable
+    e.setAttribute('contenteditable','false');
+    pbi.setAttribute('draggable','true');
+
+    submitWithAjax(input_pbi_id.value, input_description.value);
   }
 
-  $("#pane1").jScrollPane();
+  function edit_pbi(e) {
+    var pbi_header = e.parentNode;
+    var pbi = pbi_header.parentNode;
+    var divs = pbi.getElementsByTagName('div');
+    var pbi_description = divs[1];
+    
+    pbi_description.setAttribute('contenteditable','true');
+    pbi.setAttribute('draggable','false');
+    pbi_description.focus();
+  }
+
+  // Capturing tab event
+  $(".pbi-description").live('keydown', function(e) {
+    var keyCode = e.keyCode || e.which;
+
+    // Tab event 
+    if (keyCode == 9) {
+      update_pbi(this);
+    }
+  });
 
 </script>
-
-  <div id="pane1" class="scroll-pane">
-    5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px5px
-  </div>
-
 
 <%= link_to 'Add', create_pbi_path, remote: true %>
 <div id="product-backlog" 
@@ -106,8 +131,8 @@
   
 </div>
 
-<%= form_tag update_pbi_path, :id => 'hidden_form', :remote => true, :onclick => 'update_pbi' do %>
-  <input type="hidden" id="pbi_id" value="">
-  <input type="hidden" id="description" value="">
+<%= form_tag update_pbi_path, :id => 'hidden_form', :remote => true do %>
+  <input type="hidden" id="pbi_id" value="" name="pbi_id">
+  <input type="hidden" id="description" value="" name="description">
 <% end %>
 

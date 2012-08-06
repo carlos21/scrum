@@ -2,9 +2,11 @@
   <div id="<%=p.id%>" class="pbi"
     ondragstart="return start(event)"
     ondragend="return end(event)"
-    ondragover="return true">
-    <div class="pbi-header" draggable="true">header</div>
-    <div class="flexcroll" onblur="update_pbi(this)">
+    draggable="true">
+    <div class="pbi-header">
+      <i class="icon-trash" onclick="edit_pbi(this)"></i>
+    </div>
+    <div class="pbi-description" tabindex="-1">
       <%= p.description %>
     </div>
   </div>

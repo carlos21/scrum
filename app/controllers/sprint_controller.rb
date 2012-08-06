@@ -1,7 +1,7 @@
 class SprintController < ApplicationController
 
   def assign_pbi
-    @pbis = Pbi.all
+    @pbis = Pbi.order('id asc')
 
     respond_to do |format|
       format.html
@@ -12,7 +12,7 @@ class SprintController < ApplicationController
 
     @pbi = Pbi.new
     @pbi.save
-    @pbis = Pbi.all
+    @pbis = Pbi.order('id asc')
 
     respond_to do |format|
       format.html
@@ -23,10 +23,8 @@ class SprintController < ApplicationController
 
   def update_pbi
 
-    @pbi = Pbi.new
-    @pbi.id = params[:pbi_id]
-    @pbi.description = params[:description]
-    @pbi.save
+    @pbi = Pbi.find(params[:pbi_id]) 
+    @pbi.update_attributes(:description => params[:description])
 
     logger.debug 'MIERDA CTM'
     logger.debug @pbi.description
