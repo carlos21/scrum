@@ -4,7 +4,8 @@
     ondragend="return end(event)"
     draggable="true">
     <div class="pbi-header">
-      <i class="icon-trash" onclick="edit_pbi(this)"></i>
+      <div class="div-delete"><i class="icon-trash" onclick="delete_pbi(this)"></i></div>
+      <div class="div-edit"><i class="icon-edit" onclick="edit_pbi(this)" ></i></div>
     </div>
     <div class="pbi-description" tabindex="-1">
       <%= p.description %>

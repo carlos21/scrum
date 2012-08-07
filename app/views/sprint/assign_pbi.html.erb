@@ -35,7 +35,6 @@
     var pbi = document.createElement('div');
     var product_backlog = document.getElementById('product-backlog');
     pbi.className = 'pbi';
-    //pbi.addEventListener('focusLost', function(e) {return self.onFocusLost(e);});
     product_backlog.appendChild(pbi);
   }
 
@@ -64,19 +63,7 @@
     var pbi = new PBI();
   }
 
-  function submitWithAjax(id, description) {  
-
-    $.ajax({
-      type: "POST",
-      url: "<%=update_pbi_path%>",
-      data: "pbi_id=" + id + "&description=" + description,
-      success: function(msg){
-        
-      }
-    });
-
-  }
-
+  // Updates the PBI
   function update_pbi(e) {
 
     var form = $("#hidden_form");
@@ -87,22 +74,55 @@
     input_pbi_id.value = e.parentNode.id;
     input_description.value = e.innerHTML;
 
-    // make it draggable
+    // Make it draggable
     e.setAttribute('contenteditable','false');
     pbi.setAttribute('draggable','true');
 
-    submitWithAjax(input_pbi_id.value, input_description.value);
+    // Make an AJAX call
+    $.ajax({
+      type: "POST",
+      url: "<%=update_pbi_path%>",
+      data: "pbi_id=" + input_pbi_id.value + "&description=" + input_description.value,
+      success: function(msg){
+        
+      }
+    });
+
   }
 
+  // Make the div editable
   function edit_pbi(e) {
-    var pbi_header = e.parentNode;
+
+    // Get the editable element
+    var div_edit = e.parentNode;
+    var pbi_header = div_edit.parentNode;
     var pbi = pbi_header.parentNode;
     var divs = pbi.getElementsByTagName('div');
-    var pbi_description = divs[1];
+    var pbi_description = divs[3];
+    
     
     pbi_description.setAttribute('contenteditable','true');
     pbi.setAttribute('draggable','false');
     pbi_description.focus();
+  }
+
+  // Destroys the PBI
+  function delete_pbi(e) {
+
+    // Get the id of the PBI
+    var div_delete = e.parentNode;
+    var pbi_header = div_delete.parentNode;
+    var pbi = pbi_header.parentNode;
+    
+    // Make an AJAX call
+    $.ajax({
+      type: "POST",
+      url: "<%=delete_pbi_path%>",
+      data: "pbi_id=" + pbi.id,
+      success: function(msg){
+        
+      }
+    });
   }
 
   // Capturing tab event
@@ -113,6 +133,71 @@
     if (keyCode == 9) {
       update_pbi(this);
     }
+  });
+
+  // Capturing tab event
+  $(".pbi-header").live('mouseover', function(e) {
+
+    var divs = this.getElementsByTagName('div');
+    
+    for (var i=0;i<divs.length;i++) {
+      
+        divs[i].style.display = 'block';
+      
+    }
+    /*var divs = this.getElementsByTagName('div');
+    if (divs.length > 0) {
+      return;
+    }
+
+    // Create the div edit
+    var div_edit = document.createElement('div');
+    div_edit.className = 'div-edit';
+    var i_icon_edit = document.createElement('i');
+    i_icon_edit.className = 'icon-edit';
+    i_icon_edit.addEventListener('onclick', function(e){
+      alert('caca');
+      edit_pbi(e.target);
+    }, false);
+
+    div_edit.appendChild(i_icon_edit);
+    
+    // Create the div delete
+    var div_delete = document.createElement('div');
+    div_delete.className = 'div-delete';
+    var i_icon_trash = document.createElement('i');
+    i_icon_trash.className = 'icon-trash';
+    i_icon_trash.addEventListener('onclick', function(e){
+      delete_pbi(e.target);
+    }, false);
+
+    div_delete.appendChild(i_icon_trash);
+
+    // Add the divs to the header
+    this.appendChild(div_delete);
+    this.appendChild(div_edit);*/
+    
+  });
+
+  $(".pbi-header").live('mouseout', function(e) {
+
+    var divs = this.getElementsByTagName('div');
+    for (var i=0;i<divs.length;i++) {
+        divs[i].style.display = 'none';
+    }
+
+    /*var divs = this.getElementsByTagName('div');
+    if (divs.length == 0) {
+      return;
+    }
+
+    // Get the divs_and detroy them
+    var divs = this.getElementsByTagName('div');
+    var length = divs.length;
+    for (var i=0;i<length;i++) {
+      this.removeChild(divs[0]);
+    }*/
+    
   });
 
 </script>
@@ -130,9 +215,4 @@
   ondrop="return drop(event)">
   
 </div>
-
-<%= form_tag update_pbi_path, :id => 'hidden_form', :remote => true do %>
-  <input type="hidden" id="pbi_id" value="" name="pbi_id">
-  <input type="hidden" id="description" value="" name="description">
-<% end %>
 

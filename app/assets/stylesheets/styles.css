@@ -107,7 +107,7 @@ a {
 
 .pbi-header {
   width: 100%;
-  height: 10px;
+  height: 17px;
   border-bottom: 1px solid black;
   background-color: #dddddd;
 }
@@ -122,6 +122,22 @@ a {
   width: 94%;
   min-height: 66px;
   font-size: 11px;
+}
+
+.div-edit {
+  float: right;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  display: none;
+}
+
+.div-delete {
+  float: right;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  display: none;
 }
 
 .scroll-pane {

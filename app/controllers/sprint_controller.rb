@@ -26,8 +26,17 @@ class SprintController < ApplicationController
     @pbi = Pbi.find(params[:pbi_id]) 
     @pbi.update_attributes(:description => params[:description])
 
-    logger.debug 'MIERDA CTM'
-    logger.debug @pbi.description
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  def delete_pbi
+
+    @pbi = Pbi.find(params[:pbi_id])
+    @pbi.destroy
+    @pbis = Pbi.order('id asc')
 
     respond_to do |format|
       format.js
