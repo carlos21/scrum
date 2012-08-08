@@ -1,5 +1,5 @@
 <script type="text/javascript">
-
+  
   function enter(e) {
     return true;
   }
@@ -13,7 +13,26 @@
   }
 
   function drop(e) {
+    var container_id = e.target.id;
     var pbi_id = e.dataTransfer.getData('pbi');
+    var pbi_id_value = pbi_id.substring(4);
+    var action;
+    if (container_id == 'product-backlog') {
+      action = 'U';
+    } else {
+      action = 'A';
+    }
+    alert(action);
+    // Make AJAX call
+    $.ajax({
+      type: "POST",
+      url: "<%=assign_pbi_to_sprint_path%>",
+      data: "pbi_id=" + pbi_id_value +"&do="+action,
+      success: function(msg){
+        
+      }
+    });
+
     e.target.appendChild(document.getElementById(pbi_id));
     e.stopPropagation();
     return false;
@@ -66,13 +85,9 @@
   // Updates the PBI
   function update_pbi(e) {
 
-    var form = $("#hidden_form");
-    var input_pbi_id = $("#pbi_id");
-    var input_description = $("#description");
     var pbi = e.parentNode;
-
-    input_pbi_id.value = e.parentNode.id;
-    input_description.value = e.innerHTML;
+    var pbi_id = pbi.id.substring(4);
+    var text = e.innerHTML;
 
     // Make it draggable
     e.setAttribute('contenteditable','false');
@@ -82,7 +97,7 @@
     $.ajax({
       type: "POST",
       url: "<%=update_pbi_path%>",
-      data: "pbi_id=" + input_pbi_id.value + "&description=" + input_description.value,
+      data: "pbi_id=" + pbi_id + "&description=" + text,
       success: function(msg){
         
       }
@@ -113,12 +128,13 @@
     var div_delete = e.parentNode;
     var pbi_header = div_delete.parentNode;
     var pbi = pbi_header.parentNode;
+    var pbi_id = pbi.id.substring(4);
     
     // Make an AJAX call
     $.ajax({
       type: "POST",
       url: "<%=delete_pbi_path%>",
-      data: "pbi_id=" + pbi.id,
+      data: "pbi_id=" + pbi_id,
       success: function(msg){
         
       }
@@ -127,12 +143,12 @@
 
   // Capturing tab event
   $(".pbi-description").live('keydown', function(e) {
-    var keyCode = e.keyCode || e.which;
+      var keyCode = e.keyCode || e.which;
 
-    // Tab event 
-    if (keyCode == 9) {
-      update_pbi(this);
-    }
+      // Tab event 
+      if (keyCode == 9) {
+        update_pbi(this);
+      }
   });
 
   // Capturing tab event
@@ -207,12 +223,17 @@
   ondragenter="return enter(event)"
   ondragover="return over(event)"
   ondrop="return drop(event)">
+  <div class="header">
+    <label>Product Backlog</label>
+  </div>
   <%= render 'sprint/partials/product_backlog' %>
 </div>
 <div id="sprint"
   ondragenter="return enter(event)"
   ondragover="return over(event)"
   ondrop="return drop(event)">
-  
+  <div class="header">
+    <label>Sprint 1</label>
+  </div>
 </div>
 

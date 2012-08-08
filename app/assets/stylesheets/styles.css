@@ -78,7 +78,6 @@ a {
   margin-bottom: 40px;
   margin-left: 5px;
   padding-top: 5px;
-  border-left: 1px solid #dddddd;
 }
 
 .section-content {
@@ -90,7 +89,41 @@ a {
   float: left;
   width: 45%;
   min-height: 500px;
-  border: 1px solid black;
+  border: 1px solid #dddddd;
+}
+
+#product-backlog .header {
+  width: 100%;
+  height: 30px;
+  background-color: #F1F1F7;
+} 
+
+#product-backlog .header label{
+  margin-left: 20px;
+  padding-top: 6px;
+  font-size: 15px;
+  text-align: left;
+}
+
+#sprint {
+  float: left;
+  width: 45%;
+  min-height: 500px;
+  border: 1px solid #dddddd;
+  margin-left: 20px;
+}
+
+#sprint .header {
+  width: 100%;
+  height: 30px;
+  background-color: #F1F1F7;
+}
+
+#sprint .header label{
+  margin-left: 20px;
+  padding-top: 6px;
+  font-size: 15px;
+  text-align: left;
 }
 
 .pbi {
@@ -98,7 +131,7 @@ a {
   min-width: 100px;
   min-height: 66px;
   width: 30%;
-  border: 1px solid black;
+  border: 1px solid #dddddd;
   font-size: 10px;
   margin-top: 10px;
   margin-left: 2.2%;
@@ -108,8 +141,8 @@ a {
 .pbi-header {
   width: 100%;
   height: 17px;
-  border-bottom: 1px solid black;
-  background-color: #dddddd;
+  border-bottom: 1px solid #dddddd;
+  background-color: #F1F1F7;
 }
 
 .pbi-description {
@@ -146,14 +179,6 @@ a {
   overflow: auto;
   background: #ccc;
   float: left;
-}
-
-#sprint {
-  float: left;
-  width: 45%;
-  min-height: 500px;
-  border: 1px solid black;
-  margin-left: 20px;
 }
 
 .footer {

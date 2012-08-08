@@ -4,6 +4,7 @@ Scrum::Application.routes.draw do
   match 'sprint/create_pbi' => 'sprint#create_pbi', :as => 'create_pbi'
   match 'sprint/update_pbi' => 'sprint#update_pbi', :as => 'update_pbi'
   match 'sprint/delete_pbi' => 'sprint#delete_pbi', :as => 'delete_pbi'
+  match 'sprint/assign_pbi_to_sprint' => 'sprint#assign_pbi_to_sprint', :as => 'assign_pbi_to_sprint'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
