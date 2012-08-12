@@ -1,0 +1,203 @@
+<script type="text/javascript">
+  
+  function enter(e) {
+    return true;
+  }
+
+  function over(e) {
+    // return false para permitir soltar
+    return false;
+  }
+
+  function drop(e) {
+    var status = e.target.id;
+    var activity_id = e.dataTransfer.getData('activity');
+    var activity_id_value = activity_id.substring(9);
+    var action;
+    
+    // Make AJAX call
+    $.ajax({
+      type: "POST",
+      url: "<%=change_activity_status_path%>",
+      data: "activity_id=" + activity_id_value +"&status="+status,
+      success: function(msg){
+        
+      }
+    });
+
+    e.target.appendChild(document.getElementById(activity_id));
+    e.stopPropagation();
+    return false;
+  }
+
+  function start(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('activity', e.target.getAttribute('id'));
+    e.dataTransfer.setDragImage(e.target, 0, 0);
+    return true;
+  }
+
+  function end(e) {
+    e.dataTransfer.clearData('activity');
+    return true;
+  }
+
+  // Make the div editable
+  function edit_pbi(e) {
+
+    // Get the editable element
+    var div_edit = e.parentNode;
+    var pbi = div_edit.parentNode;
+    var divs = pbi.getElementsByTagName('div');
+    var pbi_description = divs[3];
+    
+    
+    pbi_description.setAttribute('contenteditable','true');
+    pbi.setAttribute('draggable','false');
+    pbi_description.focus();
+  }
+
+  // Updates the PBI
+  function update_pbi(e) {
+
+    var activity = e.parentNode;
+    var activity_id = activity.id.substring(4);
+    var text = e.innerHTML;
+
+    // Make it draggable
+    e.setAttribute('contenteditable','false');
+    activity.setAttribute('draggable','true');
+
+    // Make an AJAX call
+    $.ajax({
+      type: "POST",
+      url: "<%=change_activity_status_path%>",
+      data: "activity_id=" + activity_id + "&description=" + text,
+      success: function(msg){
+        
+      }
+    });
+
+  }
+
+  // Updates the activity
+  function update_activity(e) {
+
+    var activity = e.parentNode;
+    var activity_id = activity.id.substring(4);
+    var text = e.innerHTML;
+
+    // Make it draggable
+    e.setAttribute('contenteditable','false');
+    activity.setAttribute('draggable','true');
+
+    // Make an AJAX call
+    $.ajax({
+      type: "POST",
+      url: "<%=update_activity_path%>",
+      data: "activity_id=" + activity_id + "&description=" + text,
+      success: function(msg){
+        
+      }
+    });
+
+  }
+
+  // Make the div editable
+  function edit_activity(e) {
+
+    // Get the editable element
+    var div_edit = e.parentNode;
+    var activity = div_edit.parentNode;
+    var divs = activity.getElementsByTagName('div');
+    var pbi_description = divs[3];
+    
+    
+    activity_description.setAttribute('contenteditable','true');
+    activity.setAttribute('draggable','false');
+    activity_description.focus();
+  }
+
+  // Destroys the PBI
+  function delete_activity(e) {
+
+    // Get the id of the PBI
+    var activity_delete = e.parentNode;
+    var activity = activity_delete.parentNode;
+    var activity_id = activity.id.substring(4);
+    
+    // Make an AJAX call
+    $.ajax({
+      type: "POST",
+      url: "<%=delete_activity_path%>",
+      data: "activity=" + activity,
+      success: function(msg){
+        
+      }
+    });
+  }
+
+  // Capturing tab event
+  $(".activity-description").live('keydown', function(e) {
+      var keyCode = e.keyCode || e.which;
+
+      // Tab event 
+      if (keyCode == 9) {
+        update_activity(this);
+      }
+  });
+
+</script>
+
+<div id="stories">
+  <% @pbis.each do |p| %>
+    <div id="pbi_<%=p.id%>" class="pbi-taskboard">
+      <div class="pbi-header">
+        <div class="div-delete"><i class="icon-trash" onclick="delete_pbi(this)"></i></div>
+        <div class="div-edit"><i class="icon-edit" onclick="edit_pbi(this)" ></i></div>
+      </div>
+      <div class="pbi-description">
+        <%= p.description %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div id="activities">
+  <div id="todo"
+    ondragenter="return enter(event)"
+    ondragover="return over(event)"
+    ondrop="return drop(event)">
+    <div class="activity"
+      ondragstart="return start(event)"
+      ondragend="return end(event)"
+      draggable="true">
+      <div class="activity-delete">
+        <i class="icon-trash" onclick="delete_activity(this)"></i>
+      </div>
+      <div class="activity-edit">
+        <i class="icon-edit" onclick="edit_activity(this)" ></i>
+      </div>
+      <div class="activity-description">
+
+      </div>
+      <div class="activity-footer">
+
+      </div>
+    </div>
+  </div>
+
+  <div id="inprogress"
+    ondragenter="return enter(event)"
+    ondragover="return over(event)"
+    ondrop="return drop(event)">
+
+  </div>
+
+  <div id="done"
+    ondragenter="return enter(event)"
+    ondragover="return over(event)"
+    ondrop="return drop(event)">
+
+  </div>
+</div>

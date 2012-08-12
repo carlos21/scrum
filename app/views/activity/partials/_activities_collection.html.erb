@@ -1,0 +1,9 @@
+<% activities_collection.each do |a|
+    if a.status == status then %>
+
+      <!-- ACTIVITY -->
+      <%= render :partial => 'activity/partials/activity', :locals => {:activity => a, :pbi => pbi} %>
+      
+<%  end
+  end
+%>

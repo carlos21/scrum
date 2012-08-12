@@ -1,3 +1,4 @@
+
 class SprintController < ApplicationController
   before_filter :set_sprint
 
@@ -6,19 +7,20 @@ class SprintController < ApplicationController
   end
 
   def assign_pbi_to_sprint
-    @pbi = Pbi.find(params[:pbi_id])
-    @pbi.assign_or_unassign_according_action(session[:sprint_id], params[:do])
-    logger.debug 'tmr'
-    logger.debug params[:do]
-    logger.debug 'zzz'
+    pbi_sprint_assignment = PbiSprintAssignment.new
+    pbi_sprint_assignment.pbi_id = params[:pbi_id]
+    pbi_sprint_assignment.sprint_id = session[:sprint_id]
+
+    # Do the task
+    PbiSprintAssignment.assign_or_unassign_according_action(pbi_sprint_assignment, params[:do])
+
     respond_to do |format|
       format.js
     end
   end
 
   def assign_pbi
-    @pbis = Pbi.order('id asc')
-    #@sprint = Sprint.find(1);
+    @pbis = Pbi.where("status <> '#{Constants::PBI_STATUS_DONE}'").order('id asc')
 
     respond_to do |format|
       format.html
@@ -29,7 +31,7 @@ class SprintController < ApplicationController
 
     @pbi = Pbi.new
     @pbi.save
-    @pbis = Pbi.order('id asc')
+    @pbis = Pbi.where('status <> ' + Constants::PBI_STATUS_DONE).order('id asc')
 
     respond_to do |format|
       format.html

@@ -17,12 +17,13 @@
     var pbi_id = e.dataTransfer.getData('pbi');
     var pbi_id_value = pbi_id.substring(4);
     var action;
+    
     if (container_id == 'product-backlog') {
       action = 'U';
     } else {
       action = 'A';
     }
-    alert(action);
+    
     // Make AJAX call
     $.ajax({
       type: "POST",
@@ -161,37 +162,6 @@
         divs[i].style.display = 'block';
       
     }
-    /*var divs = this.getElementsByTagName('div');
-    if (divs.length > 0) {
-      return;
-    }
-
-    // Create the div edit
-    var div_edit = document.createElement('div');
-    div_edit.className = 'div-edit';
-    var i_icon_edit = document.createElement('i');
-    i_icon_edit.className = 'icon-edit';
-    i_icon_edit.addEventListener('onclick', function(e){
-      alert('caca');
-      edit_pbi(e.target);
-    }, false);
-
-    div_edit.appendChild(i_icon_edit);
-    
-    // Create the div delete
-    var div_delete = document.createElement('div');
-    div_delete.className = 'div-delete';
-    var i_icon_trash = document.createElement('i');
-    i_icon_trash.className = 'icon-trash';
-    i_icon_trash.addEventListener('onclick', function(e){
-      delete_pbi(e.target);
-    }, false);
-
-    div_delete.appendChild(i_icon_trash);
-
-    // Add the divs to the header
-    this.appendChild(div_delete);
-    this.appendChild(div_edit);*/
     
   });
 
@@ -199,21 +169,9 @@
 
     var divs = this.getElementsByTagName('div');
     for (var i=0;i<divs.length;i++) {
-        divs[i].style.display = 'none';
+      divs[i].style.display = 'none';
     }
 
-    /*var divs = this.getElementsByTagName('div');
-    if (divs.length == 0) {
-      return;
-    }
-
-    // Get the divs_and detroy them
-    var divs = this.getElementsByTagName('div');
-    var length = divs.length;
-    for (var i=0;i<length;i++) {
-      this.removeChild(divs[0]);
-    }*/
-    
   });
 
 </script>
@@ -228,6 +186,7 @@
   </div>
   <%= render 'sprint/partials/product_backlog' %>
 </div>
+
 <div id="sprint"
   ondragenter="return enter(event)"
   ondragover="return over(event)"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808155218) do
+ActiveRecord::Schema.define(:version => 20120811183706) do
 
   create_table "activities", :force => true do |t|
     t.string   "description",  :limit => 100
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120808155218) do
     t.integer  "pbi_id"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.string   "status"
   end
 
   create_table "developers", :force => true do |t|
@@ -40,6 +41,8 @@ ActiveRecord::Schema.define(:version => 20120808155218) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "sprint_id"
+    t.string   "status"
+    t.integer  "priority"
   end
 
   create_table "sprints", :force => true do |t|

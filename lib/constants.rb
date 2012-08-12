@@ -1,0 +1,11 @@
+class Constants
+
+  PBI_STATUS_IN_PROGRESS = 'IP'
+  PBI_STATUS_DONE = 'DN'
+  PBI_STATUS_PE = 'PE'
+
+  ACTIVITY_TODO = 'TD'
+  ACTIVITY_IN_POGRESS = 'IP'
+  ACTIVITY_DONE = 'DN'
+
+end

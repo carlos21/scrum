@@ -1,0 +1,25 @@
+<div id="activity_<%= activity.id %>" class="activity"
+  ondragstart="return start(event)"
+  ondragend="return end(event)"
+  draggable="true">
+
+  <!-- OPTIONS -->
+  <div class="activity-delete">
+    <i class="icon-trash" onclick="delete_activity(this)"></i>
+  </div>
+  <div class="activity-edit">
+    <i class="icon-edit" onclick="edit_activity(this)" ></i>
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="activity-description">
+    <%= pbi.id %>
+    <%= activity.description %>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="activity-footer">
+
+  </div>
+
+</div>

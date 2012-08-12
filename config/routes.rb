@@ -1,10 +1,17 @@
 Scrum::Application.routes.draw do
-  root :to => "Sprint#assign_pbi", :as => 'root'
+  root :to => "activity#taskboard", :as => 'root'
 
   match 'sprint/create_pbi' => 'sprint#create_pbi', :as => 'create_pbi'
   match 'sprint/update_pbi' => 'sprint#update_pbi', :as => 'update_pbi'
   match 'sprint/delete_pbi' => 'sprint#delete_pbi', :as => 'delete_pbi'
   match 'sprint/assign_pbi_to_sprint' => 'sprint#assign_pbi_to_sprint', :as => 'assign_pbi_to_sprint'
+  
+  match 'activity/create_activity/:pbi_id' => 'activity#create_activity', :as => 'create_activity'
+  match 'activity/update_activity' => 'activity#update_activity', :as => 'update_activity'
+  match 'activity/delete_activity' => 'activity#delete_activity', :as => 'delete_activity'
+  match 'activity/change_activity_status' => 'activity#change_activity_status', :as => 'change_activity_status'
+
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

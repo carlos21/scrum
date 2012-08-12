@@ -1,0 +1,10 @@
+
+var rowcontainer = document.getElementById("rowcontainer_<%=@pbi.id%>");
+
+var divs_rowcontainer = rowcontainer.getElementsByTagName('div');
+var activities = divs_rowcontainer[6];
+
+var divs_activities = activities.getElementsByTagName('div');
+var todo = divs_activities[0];
+
+$("#"+todo.id).append("<%= escape_javascript(render :partial => 'activity/partials/activity', :locals => {:pbi => @pbi, :activity => @activity})%>");
