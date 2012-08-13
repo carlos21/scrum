@@ -41,6 +41,13 @@ class ActivityController < ApplicationController
 
   def update_activity
 
+    @activity = Activity.find(params[:activity_id]) 
+    @activity.update_attributes(:description => params[:description])
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
   def delete_activity

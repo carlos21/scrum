@@ -99,9 +99,9 @@
 
   // Updates the activity
   function update_activity(e) {
-
-    var activity = e.parentNode;
-    var activity_id = activity.id.substring(4);
+    var activity_description = e.parentNode;
+    var activity = activity_description.parentNode;
+    var activity_id = activity.id.substring(9);
     var text = e.innerHTML;
 
     // Make it draggable
@@ -127,12 +127,14 @@
     var div_edit = e.parentNode;
     var activity = div_edit.parentNode;
     var divs = activity.getElementsByTagName('div');
-    var pbi_description = divs[3];
+    var activity_description = divs[3];
+    var divs_activity_description = activity_description.getElementsByTagName('div');
+    var activity_editable = divs_activity_description[0];
     
     
-    activity_description.setAttribute('contenteditable','true');
+    activity_editable.setAttribute('contenteditable','true');
     activity.setAttribute('draggable','false');
-    activity_description.focus();
+    activity_editable.focus();
   }
 
   // Destroys the PBI
@@ -155,7 +157,7 @@
   }
 
   // Capturing tab event
-  $(".activity-description").live('keydown', function(e) {
+  $(".activity-editable").live('keydown', function(e) {
       var keyCode = e.keyCode || e.which;
 
       // Tab event 
@@ -165,6 +167,11 @@
   });
 
 </script>
+
+<div class="story-header">Stories</div>
+<div class="todo-header">To do</div>
+<div class="inprogress-header"> In Progress</div>
+<div class="done-header">Done</div>
 
 <% @pbis.each do |p| %>
 
@@ -182,8 +189,9 @@
 
         </div>
         <div class="pbi-description">
-          <%= p.id %>
-          <%= p.description %>
+          <div class="pbi-editable">
+            <%= p.description %>
+          </div>
         </div>
       </div>
     </div>

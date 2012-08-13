@@ -2,7 +2,10 @@ body {
   margin: 0px;
   padding: 0px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: whitesmoke;
 }
+
+html { height:100%; }
 
 a {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -95,7 +98,7 @@ a {
 #product-backlog .header {
   width: 100%;
   height: 30px;
-  background-color: #F1F1F7;
+  background-color: #dddddd;
 } 
 
 #product-backlog .header label{
@@ -109,6 +112,7 @@ a {
   min-height: 140px;
   overflow: auto;
   border-bottom: 1px solid #dddddd;
+  clear: both;
 }
 
 .story {
@@ -118,6 +122,19 @@ a {
   border-right: 1px solid #dddddd;
   
   overflow: auto;
+}
+
+.story-header {
+  width: 19%;
+  height: 20px;
+  float: left;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  overflow: auto;
+  font-variant:small-caps;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .activities {
@@ -131,8 +148,19 @@ a {
   min-height: 140px;
   float: left;
   border-right: 1px solid #dddddd;
-  
   overflow: auto;
+}
+
+.todo-header {
+  width: 26%;
+  height: 20px;
+  float: left;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  font-variant:small-caps;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .inprogress {
@@ -140,8 +168,18 @@ a {
   min-height: 140px;
   float: left;
   border-right: 1px solid #dddddd;
-  
-  overflow: auto;
+}
+
+.inprogress-header {
+  width: 26%;
+  height: 20px;
+  float: left;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  font-variant:small-caps;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .done {
@@ -149,8 +187,19 @@ a {
   min-height: 140px;
   float: left;
   border-right: 1px solid #dddddd;
-  
-  overflow: auto;
+
+}
+
+.done-header {
+  width: 26%;
+  height: 20px;
+  float: left;
+  border-right: 1px solid #dddddd; 
+  border-bottom: 1px solid #dddddd;
+  font-variant:small-caps;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
 }
 
 #sprint {
@@ -164,7 +213,7 @@ a {
 #sprint .header {
   width: 100%;
   height: 30px;
-  background-color: #F1F1F7;
+  background-color: #dddddd;
 }
 
 #sprint .header label{
@@ -200,9 +249,9 @@ a {
 
 .activity-header {
   width: 100%;
-  height: 17px;
+  height: 6px;
   border-bottom: 1px solid #dddddd;
-  background-color: #F1F1F7;
+  background-color: #D6E9C6;
 }
 
 .activity-description {
@@ -246,20 +295,32 @@ a {
   margin-top: 10px;
   margin-left: 2.2%;
   cursor: pointer;
+  overflow: auto;
 }
 
 .pbi-header {
   width: 100%;
-  height: 17px;
+  height: 7px;
   border-bottom: 1px solid #dddddd;
-  background-color: #F1F1F7;
+  background-color: #dddddd;
 }
 
 .pbi-description {
   width: 100%;
   height: 100%;
-  padding-right: 5px;
-  padding-left: 5px;
+  min-height: 100% !important;;
+  padding-top: 3px;
+  background-color: #F1F1F7;
+  overflow: auto;
+}
+
+.pbi-editable {
+  margin: 5px;
+  margin-top:0px;
+  margin-bottom: 2px;
+  min-height: 100% !important;;
+  height: 100%;
+  background-color: #F1F1F7;
 }
 
 .div-edit {

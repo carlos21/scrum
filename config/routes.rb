@@ -11,6 +11,9 @@ Scrum::Application.routes.draw do
   match 'activity/delete_activity' => 'activity#delete_activity', :as => 'delete_activity'
   match 'activity/change_activity_status' => 'activity#change_activity_status', :as => 'change_activity_status'
 
+  match 'sprint/assign_pbi' => 'sprint#assign_pbi', :as => 'assign_pbis'
+  match 'activity/taskboard' => 'activity#taskboard', :as => 'taskboard'
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

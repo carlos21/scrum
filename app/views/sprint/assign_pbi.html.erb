@@ -86,7 +86,8 @@
   // Updates the PBI
   function update_pbi(e) {
 
-    var pbi = e.parentNode;
+    var pbi_description = e.parentNode;
+    var pbi = pbi_description.parentNode;
     var pbi_id = pbi.id.substring(4);
     var text = e.innerHTML;
 
@@ -115,11 +116,12 @@
     var pbi = pbi_header.parentNode;
     var divs = pbi.getElementsByTagName('div');
     var pbi_description = divs[3];
+    var divs_pbi_description = pbi_description.getElementsByTagName('div');
+    var pbi_editable = divs_pbi_description[0];
     
-    
-    pbi_description.setAttribute('contenteditable','true');
+    pbi_editable.setAttribute('contenteditable','true');
     pbi.setAttribute('draggable','false');
-    pbi_description.focus();
+    pbi_editable.focus();
   }
 
   // Destroys the PBI
@@ -143,7 +145,7 @@
   }
 
   // Capturing tab event
-  $(".pbi-description").live('keydown', function(e) {
+  $(".pbi-editable").live('keydown', function(e) {
       var keyCode = e.keyCode || e.which;
 
       // Tab event 

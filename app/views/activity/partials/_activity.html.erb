@@ -3,6 +3,11 @@
   ondragend="return end(event)"
   draggable="true">
 
+  <!-- HEADER -->
+  <div class="activity-header">
+
+  </div>
+
   <!-- OPTIONS -->
   <div class="activity-delete">
     <i class="icon-trash" onclick="delete_activity(this)"></i>
@@ -13,8 +18,9 @@
 
   <!-- DESCRIPTION -->
   <div class="activity-description">
-    <%= pbi.id %>
-    <%= activity.description %>
+    <div class="activity-editable">
+      <%= activity.description %>
+    </div>
   </div>
 
   <!-- FOOTER -->

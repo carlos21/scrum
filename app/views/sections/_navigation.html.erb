@@ -1,7 +1,12 @@
 <div class="navigation">
   <h1>Options</h1>
-  <div>Option1</div>
-  <div>Option2</div>
-  <div>Option3</div>
-  <div>Option4</div>
+
+  <%= link_to assign_pbis_path do %>
+  <div class="navigation-item">Assign PBI</div>
+  <% end %>
+
+  <%= link_to taskboard_path do %>
+  <div class="navigation-item">Taskboard</div>
+  <% end %>
+
 </div>
