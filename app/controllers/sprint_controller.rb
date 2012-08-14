@@ -20,7 +20,9 @@ class SprintController < ApplicationController
   end
 
   def assign_pbi
-    @pbis = Pbi.where("status <> '#{Constants::PBI_STATUS_DONE}'").order('id asc')
+    @pbis = Pbi.joins('left join pbi_sprint_assignments on pbi_sprint_assignments.pbi_id = pbis.id').where("
+      pbi_sprint_assignments.sprint_id is null or pbi_sprint_assignments.sprint_id <> #{session[:sprint_id]} and pbis.status <> '#{Constants::PBI_STATUS_DONE}' ").order('pbis.id asc')
+    @selected_pbis = Pbi.get_selected_pbis_by_sprint session[:sprint_id]
 
     respond_to do |format|
       format.html

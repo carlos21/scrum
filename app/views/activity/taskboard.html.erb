@@ -140,16 +140,16 @@
   // Destroys the PBI
   function delete_activity(e) {
 
-    // Get the id of the PBI
+    // Get the id of the activity
     var activity_delete = e.parentNode;
     var activity = activity_delete.parentNode;
-    var activity_id = activity.id.substring(4);
+    var activity_id = activity.id.substring(9);
     
     // Make an AJAX call
     $.ajax({
       type: "POST",
       url: "<%=delete_activity_path%>",
-      data: "activity=" + activity,
+      data: "activity_id=" + activity_id,
       success: function(msg){
         
       }

@@ -1,0 +1,17 @@
+<% @selected_pbis.each do |p| %>
+  <div id="pbi_<%=p.id%>" class="pbi"
+    ondragstart="return start(event)"
+    ondragend="return end(event)"
+    draggable="true">
+    <div class="pbi-header">
+      <div class="div-delete"><i class="icon-trash" onclick="delete_pbi(this)"></i></div>
+      <div class="div-edit"><i class="icon-edit" onclick="edit_pbi(this)" ></i></div>
+    </div>
+    <div class="pbi-description" tabindex="-1">
+      <div class="pbi-editable">
+        <%= p.description %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

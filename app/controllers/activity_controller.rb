@@ -52,6 +52,13 @@ class ActivityController < ApplicationController
 
   def delete_activity
 
+    @activity = Activity.find(params[:activity_id])
+    @activity.destroy
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
   def change_activity_status
